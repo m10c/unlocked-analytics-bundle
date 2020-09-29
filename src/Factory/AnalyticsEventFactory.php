@@ -148,7 +148,5 @@ class AnalyticsEventFactory
         $event->properties = $data['properties'] ?? null;
 
         $event->timestamp = isset($data['timestamp']) ? new \DateTime($data['timestamp']) : new \DateTime();
-
-        $event->userId = isset($data['userId']) ? (string) $data['userId'] : null;
     }
 }
