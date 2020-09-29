@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults public="false" />
+
+        <service id="unlocked_analytics.event_factory" class="M10c\UnlockedAnalyticsBundle\Factory\AnalyticsEventFactory" />
+
+        <service id="unlocked_analytics.request_factory" class="M10c\UnlockedAnalyticsBundle\Factory\AnalyticsRequestFactory" />
+
+        <service id="unlocked_analytics.request_handler" class="M10c\UnlockedAnalyticsBundle\RequestHandler">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="unlocked_analytics.event_factory" />
+        </service>
+
+        <service id="unlocked_analytics.action.batch" class="M10c\UnlockedAnalyticsBundle\Action\BatchAction" public="true">
+            <argument type="service" id="unlocked_analytics.request_factory" />
+            <argument type="service" id="unlocked_analytics.request_handler" />
+        </service>
+    </services>
+
+</container>

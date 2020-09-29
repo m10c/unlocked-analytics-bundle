@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__.'/src');
+
+return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setRules([
+        '@DoctrineAnnotation' => true,
+        '@PHP71Migration' => true,
+        '@PHP71Migration:risky' => true,
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+
+        'array_syntax' => ['syntax' => 'short'],
+        'compact_nullable_typehint' => true,
+        'doctrine_annotation_array_assignment' => [
+            'operator' => '=',
+        ],
+        'doctrine_annotation_spaces' => [
+            'after_array_assignments_equals' => false,
+            'before_array_assignments_equals' => false,
+        ],
+        'phpdoc_to_comment' => false,
+    ])
+    ->setFinder($finder);

@@ -1,0 +1,35 @@
+{
+    "name": "m10c/unlocked-analytics-bundle",
+    "description": "Analytics server bundle for Symfony",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "require": {
+        "symfony/config": "^4.4 | ^5.0",
+        "symfony/dependency-injection": "^4.4 | ^5.0",
+        "symfony/http-kernel": "^4.4 | ^5.0",
+        "symfony/routing": "^4.4 | ^5.0",
+        "doctrine/persistence": "^1.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "symfony/phpunit-bridge": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "M10c\\UnlockedAnalyticsBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "M10c\\UnlockedAnalyticsBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "fix": "php vendor/bin/php-cs-fixer fix",
+        "phpunit": "php vendor/bin/simple-phpunit",
+
+        "test": [
+            "@phpunit"
+        ]
+    }
+}
