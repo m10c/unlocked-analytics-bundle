@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-suppress MissingConstructor
  * @psalm-suppress PropertyNotSetInConstructor
  */
-final class AnalyticsEvent
+class AnalyticsEvent
 {
     public const TYPE_TRACK = 'track';
     public const TYPE_SCREEN = 'screen';

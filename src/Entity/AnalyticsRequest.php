@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-suppress MissingConstructor
  * @psalm-suppress PropertyNotSetInConstructor
  */
-final class AnalyticsRequest
+class AnalyticsRequest
 {
     /**
      * @var \Ramsey\Uuid\UuidInterface
