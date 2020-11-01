@@ -30,6 +30,9 @@ class RequestHandler
             throw new \Exception(sprintf('Could not find manager for class %s', AnalyticsRequest::class));
         }
 
+        $storeAnonymous = false; // TODO: config
+        if (!$analyticsRequest->userId && !$storeAnonymous) return;
+        
         // Store raw request
         $em->persist($analyticsRequest);
 
