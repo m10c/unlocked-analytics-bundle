@@ -33,6 +33,12 @@ class AnalyticsEvent
     public $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AnalyticsRequest")
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     */
+    public ?AnalyticsRequest $request;
+
+    /**
      * @ORM\Column(nullable=true)
      */
     public ?string $anonymousId;

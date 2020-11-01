@@ -46,6 +46,7 @@ class AnalyticsEventFactory
     protected function populateEvent(array $data, AnalyticsRequest $request): AnalyticsEvent
     {
         $event = new AnalyticsEvent();
+        $event->request = $request;
         $this->populateFromRequestMeta($event, $request);
         $this->populateFromRequestData($event, $data);
 
@@ -57,7 +58,9 @@ class AnalyticsEventFactory
         $event->userId = $request->userId;
         $event->contextIp = $request->ip;
         $event->contextUserAgent = $request->userAgent;
-        if ($request->acceptLanguage) $event->contextLocale = Util::extractLocaleFromAcceptLanguage($request->acceptLanguage);
+        if ($request->acceptLanguage) {
+            $event->contextLocale = Util::extractLocaleFromAcceptLanguage($request->acceptLanguage);
+        }
     }
 
     /**
@@ -104,7 +107,9 @@ class AnalyticsEventFactory
         $event->contextLibraryName = isset($data['context']['library']['name']) ? (string) $data['context']['library']['name'] : null;
         $event->contextLibraryVersion = isset($data['context']['library']['version']) ? (string) $data['context']['library']['version'] : null;
 
-        if (isset($data['context']['locale'])) $event->contextLocale = (string) $data['context']['locale'];
+        if (isset($data['context']['locale'])) {
+            $event->contextLocale = (string) $data['context']['locale'];
+        }
 
         $event->contextLocationCity = isset($data['context']['location']['city']) ? (string) $data['context']['location']['city'] : null;
         $event->contextLocationCountry = isset($data['context']['location']['country']) ? (string) $data['context']['location']['country'] : null;

@@ -31,8 +31,10 @@ class RequestHandler
         }
 
         $storeAnonymous = false; // TODO: config
-        if (!$analyticsRequest->userId && !$storeAnonymous) return;
-        
+        if (!$analyticsRequest->userId && !$storeAnonymous) {
+            return;
+        }
+
         // Store raw request
         $em->persist($analyticsRequest);
 
