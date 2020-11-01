@@ -26,7 +26,7 @@ class AnalyticsEventFactory
         if ($content['batch'] ?? false) {
             foreach ($content['batch'] as $eventData) {
                 $events[] = $this->populateEvent(
-                    Util::array_merge_recursive_distinct(
+                    Util::arrayMergeRecursiveDistinct(
                         $content,
                         $eventData,
                     ),
@@ -57,6 +57,7 @@ class AnalyticsEventFactory
         $event->userId = $request->userId;
         $event->contextIp = $request->ip;
         $event->contextUserAgent = $request->userAgent;
+        if ($request->acceptLanguage) $event->contextLocale = Util::extractLocaleFromAcceptLanguage($request->acceptLanguage);
     }
 
     /**
@@ -103,7 +104,7 @@ class AnalyticsEventFactory
         $event->contextLibraryName = isset($data['context']['library']['name']) ? (string) $data['context']['library']['name'] : null;
         $event->contextLibraryVersion = isset($data['context']['library']['version']) ? (string) $data['context']['library']['version'] : null;
 
-        $event->contextLocale = isset($data['context']['locale']) ? (string) $data['context']['locale'] : null;
+        if (isset($data['context']['locale'])) $event->contextLocale = (string) $data['context']['locale'];
 
         $event->contextLocationCity = isset($data['context']['location']['city']) ? (string) $data['context']['location']['city'] : null;
         $event->contextLocationCountry = isset($data['context']['location']['country']) ? (string) $data['context']['location']['country'] : null;

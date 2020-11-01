@@ -16,6 +16,7 @@ class AnalyticsRequestFactory implements AnalyticsRequestFactoryInterface
         $request->content = $symfonyRequest->getContent();
         $request->ip = $symfonyRequest->getClientIp();
         $request->userAgent = $symfonyRequest->headers->get('User-Agent');
+        $request->acceptLanguage = $symfonyRequest->headers->get('Accept-Language');
         $request->requestedAt = new \DateTime();
 
         return $request;

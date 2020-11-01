@@ -45,6 +45,11 @@ class AnalyticsRequest
     public ?string $userAgent;
 
     /**
+     * @ORM\Column(nullable=true)
+     */
+    public ?string $acceptLanguage;
+
+    /**
      * @ORM\Column(type="datetimetz")
      */
     public \DateTimeInterface $requestedAt;
