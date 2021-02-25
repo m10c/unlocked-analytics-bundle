@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace M10c\UnlockedAnalyticsBundle;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use M10c\UnlockedAnalyticsBundle\Entity\AnalyticsEvent;
 use M10c\UnlockedAnalyticsBundle\Entity\AnalyticsRequest;
 use M10c\UnlockedAnalyticsBundle\Entity\Request;
