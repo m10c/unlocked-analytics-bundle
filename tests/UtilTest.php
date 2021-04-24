@@ -28,4 +28,9 @@ class UtilTest extends TestCase
         $this->assertNull(Util::extractLocaleFromAcceptLanguage('*'));
         $this->assertNull(Util::extractLocaleFromAcceptLanguage('invalid'));
     }
+
+    public function testAnonymizeIp()
+    {
+        $this->assertEquals('122.17.48.0', Util::anonymizeIp('122.17.48.12'));
+    }
 }

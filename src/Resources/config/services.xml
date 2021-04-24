@@ -9,7 +9,9 @@
 
         <service id="unlocked_analytics.event_factory" class="M10c\UnlockedAnalyticsBundle\Factory\AnalyticsEventFactory" />
 
-        <service id="unlocked_analytics.request_factory" class="M10c\UnlockedAnalyticsBundle\Factory\AnalyticsRequestFactory" />
+        <service id="unlocked_analytics.request_factory" class="M10c\UnlockedAnalyticsBundle\Factory\AnalyticsRequestFactory">
+            <argument>%m10c_unlocked_analytics.anonymize_ip%</argument>
+        </service>
 
         <service id="unlocked_analytics.request_handler" class="M10c\UnlockedAnalyticsBundle\RequestHandler">
             <argument type="service" id="doctrine" />

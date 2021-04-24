@@ -252,7 +252,7 @@ class AnalyticsEvent
     public ?string $contextUserAgent;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column
      */
     public string $type;
 

@@ -43,4 +43,12 @@ final class Util
 
         return null;
     }
+
+    /**
+     * Replace last octet of IPv4 with 0.
+     */
+    public static function anonymizeIp(string $ip): string
+    {
+        return preg_replace('/\.\d+$/', '.0', $ip);
+    }
 }
