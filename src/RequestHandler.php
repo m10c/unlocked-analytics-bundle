@@ -14,6 +14,7 @@ class RequestHandler
     public function __construct(
         private readonly ManagerRegistry $managerRegistry,
         private readonly AnalyticsEventFactory $analyticsEventFactory,
+        private readonly bool $storeAnonymousEvents = false,
     ) {
     }
 
@@ -24,8 +25,8 @@ class RequestHandler
             throw new \Exception(\sprintf('Could not find manager for class %s', AnalyticsRequest::class));
         }
 
-        // TODO: add config option to store anonymous events
-        if (!$analyticsRequest->userId) {
+        // Drop events with no attribution unless anonymous storage is enabled.
+        if (!$analyticsRequest->userId && !$this->storeAnonymousEvents) {
             return;
         }
 

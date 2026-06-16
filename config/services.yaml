@@ -15,6 +15,7 @@ services:
         arguments:
             - '@doctrine'
             - '@unlocked_analytics.event_factory'
+            - '%m10c_unlocked_analytics.store_anonymous_events%'
 
     M10c\UnlockedAnalyticsBundle\Action\BatchAction:
         public: true

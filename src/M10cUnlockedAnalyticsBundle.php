@@ -16,6 +16,7 @@ class M10cUnlockedAnalyticsBundle extends AbstractBundle
         $definition->rootNode()
             ->children()
             ->booleanNode('anonymize_ip')->defaultFalse()->end()
+            ->booleanNode('store_anonymous_events')->defaultFalse()->end()
             ->end()
         ;
     }
@@ -24,6 +25,7 @@ class M10cUnlockedAnalyticsBundle extends AbstractBundle
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $builder->setParameter('m10c_unlocked_analytics.anonymize_ip', $config['anonymize_ip']);
+        $builder->setParameter('m10c_unlocked_analytics.store_anonymous_events', $config['store_anonymous_events']);
 
         $container->import('../config/services.yaml');
     }
