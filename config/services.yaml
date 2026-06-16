@@ -10,11 +10,35 @@ services:
         arguments:
             - '%m10c_unlocked_analytics.anonymize_ip%'
 
+    # --- Storage backends (one is aliased to EventStoreInterface per config) ---
+    M10c\UnlockedAnalyticsBundle\Storage\DoctrineEventStore:
+        arguments:
+            - '@doctrine'
+
+    M10c\UnlockedAnalyticsBundle\ClickHouse\ClickHouseClient:
+        arguments:
+            - '%m10c_unlocked_analytics.clickhouse_dsn%'
+
+    M10c\UnlockedAnalyticsBundle\ClickHouse\ClickHouseSchemaInstaller:
+        public: true
+        arguments:
+            - '@M10c\UnlockedAnalyticsBundle\ClickHouse\ClickHouseClient'
+
+    M10c\UnlockedAnalyticsBundle\Storage\ClickHouseEventStore:
+        arguments:
+            - '@M10c\UnlockedAnalyticsBundle\ClickHouse\ClickHouseClient'
+            - '@M10c\UnlockedAnalyticsBundle\ClickHouse\ClickHouseSchemaInstaller'
+
+    M10c\UnlockedAnalyticsBundle\Command\InstallClickHouseSchemaCommand:
+        arguments:
+            - '@M10c\UnlockedAnalyticsBundle\ClickHouse\ClickHouseSchemaInstaller'
+        tags: ['console.command']
+
     unlocked_analytics.request_handler:
         class: M10c\UnlockedAnalyticsBundle\RequestHandler
         arguments:
-            - '@doctrine'
             - '@unlocked_analytics.event_factory'
+            - '@M10c\UnlockedAnalyticsBundle\Storage\EventStoreInterface'
             - '%m10c_unlocked_analytics.store_anonymous_events%'
 
     M10c\UnlockedAnalyticsBundle\Action\BatchAction:
