@@ -5,10 +5,15 @@ services:
     unlocked_analytics.event_factory:
         class: M10c\UnlockedAnalyticsBundle\Factory\AnalyticsEventFactory
 
+    M10c\UnlockedAnalyticsBundle\Identity\NullAnalyticsIdentityResolver: ~
+    M10c\UnlockedAnalyticsBundle\Identity\AnalyticsIdentityResolverInterface:
+        alias: M10c\UnlockedAnalyticsBundle\Identity\NullAnalyticsIdentityResolver
+
     unlocked_analytics.request_factory:
         class: M10c\UnlockedAnalyticsBundle\Factory\AnalyticsRequestFactory
         arguments:
             - '%m10c_unlocked_analytics.anonymize_ip%'
+            - '@M10c\UnlockedAnalyticsBundle\Identity\AnalyticsIdentityResolverInterface'
 
     # --- Storage backends (one is aliased to EventStoreInterface per config) ---
     M10c\UnlockedAnalyticsBundle\Storage\DoctrineEventStore:
