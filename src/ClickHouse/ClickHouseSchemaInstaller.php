@@ -6,9 +6,6 @@ namespace M10c\UnlockedAnalyticsBundle\ClickHouse;
 
 /**
  * Creates the ClickHouse `analytics_event` table for registering analytics event data.
- *
- * The columns mirror the Segment-style {@see \M10c\UnlockedAnalyticsBundle\Entity\AnalyticsEvent}
- * (https://www.twilio.com/docs/segment/connections/spec/common).
  */
 final class ClickHouseSchemaInstaller
 {
@@ -70,8 +67,8 @@ final class ClickHouseSchemaInstaller
             context_timezone                Nullable(String),
             context_group_id                Nullable(String),
             context_user_agent              Nullable(String),
-            timestamp                       DateTime64(3, 'Europe/London'),
-            version                         DateTime64(3, 'Europe/London')
+            timestamp                       DateTime64(3, 'UTC'),
+            version                         DateTime64(3, 'UTC')
         )
         ENGINE = ReplacingMergeTree(version)
         PARTITION BY toYYYYMM(timestamp)

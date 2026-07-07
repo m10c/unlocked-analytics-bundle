@@ -12,8 +12,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class M10cUnlockedAnalyticsBundle extends AbstractBundle
+final class M10cUnlockedAnalyticsBundle extends AbstractBundle
 {
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+
     public function configure(DefinitionConfigurator $definition): void
     {
         $definition->rootNode()
@@ -61,20 +66,22 @@ class M10cUnlockedAnalyticsBundle extends AbstractBundle
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        if ('clickhouse' === $this->resolveStorage($builder)) {
+        if (!$builder->hasExtension('doctrine')) {
             return;
         }
+
+        $mapping = 'clickhouse' === $this->resolveStorage($builder) ? false : [
+            'type' => 'attribute',
+            'is_bundle' => false,
+            'dir' => __DIR__.'/Entity',
+            'prefix' => 'M10c\UnlockedAnalyticsBundle\Entity',
+            'alias' => 'M10cUnlockedAnalyticsBundle',
+        ];
 
         $builder->prependExtensionConfig('doctrine', [
             'orm' => [
                 'mappings' => [
-                    'M10cUnlockedAnalyticsBundle' => [
-                        'type' => 'attribute',
-                        'is_bundle' => false,
-                        'dir' => __DIR__.'/Entity',
-                        'prefix' => 'M10c\UnlockedAnalyticsBundle\Entity',
-                        'alias' => 'M10cUnlockedAnalyticsBundle',
-                    ],
+                    'M10cUnlockedAnalyticsBundle' => $mapping,
                 ],
             ],
         ]);

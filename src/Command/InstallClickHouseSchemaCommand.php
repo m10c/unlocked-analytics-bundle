@@ -11,10 +11,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-/**
- * Creates the ClickHouse `analytics_event` table. Run as a setup step when
- * the ClickHouse storage backend is enabled.
- */
 #[AsCommand(
     name: 'unlocked-analytics:clickhouse:install-schema',
     description: 'Create the analytics_event ClickHouse table.',

@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Stores events in ClickHouse. The raw request is not retained; each event is
- * projected to one row mirroring the Segment-style {@see AnalyticsEvent} columns.
+ * projected to one row mirroring the {@see AnalyticsEvent} columns.
  */
 final class ClickHouseEventStore implements EventStoreInterface
 {
@@ -32,7 +32,7 @@ final class ClickHouseEventStore implements EventStoreInterface
 
         $this->ensureSchema();
 
-        $now = (new \DateTimeImmutable())->format('Y-m-d H:i:s.v');
+        $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format('Y-m-d H:i:s.v');
         $rows = array_map(static fn (AnalyticsEvent $event) => self::toRow($event, $now), $events);
 
         $this->client->insert(ClickHouseSchemaInstaller::TABLE, $rows);
@@ -100,7 +100,7 @@ final class ClickHouseEventStore implements EventStoreInterface
             'context_timezone' => $event->contextTimezone,
             'context_group_id' => $event->contextGroupId,
             'context_user_agent' => $event->contextUserAgent,
-            'timestamp' => $event->timestamp->format('Y-m-d H:i:s.v'),
+            'timestamp' => $event->timestamp->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s.v'),
             'version' => $now,
         ];
     }

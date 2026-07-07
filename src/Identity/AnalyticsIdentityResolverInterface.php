@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Resolves the subject identity for an incoming analytics request from the host
- * application's context. The payload always takes precedence.
+ * application's context.
  */
 interface AnalyticsIdentityResolverInterface
 {

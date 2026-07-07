@@ -8,7 +8,7 @@ use M10c\UnlockedAnalyticsBundle\Entity\AnalyticsEvent;
 use M10c\UnlockedAnalyticsBundle\Entity\AnalyticsRequest;
 use M10c\UnlockedAnalyticsBundle\Util;
 
-class AnalyticsEventFactory
+final class AnalyticsEventFactory
 {
     /**
      * @return array<AnalyticsEvent>

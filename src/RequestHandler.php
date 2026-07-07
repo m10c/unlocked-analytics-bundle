@@ -31,7 +31,7 @@ final class RequestHandler
             $this->transformEvent($event);
         }
 
-        // Hand off to the configured storage backend (relational or ClickHouse).
+        // Hand off to the configured storage backend.
         $this->eventStore->store($analyticsRequest, array_values($events));
     }
 
