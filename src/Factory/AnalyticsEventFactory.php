@@ -8,7 +8,7 @@ use M10c\UnlockedAnalyticsBundle\Entity\AnalyticsEvent;
 use M10c\UnlockedAnalyticsBundle\Entity\AnalyticsRequest;
 use M10c\UnlockedAnalyticsBundle\Util;
 
-class AnalyticsEventFactory
+final class AnalyticsEventFactory
 {
     /**
      * @return array<AnalyticsEvent>
@@ -46,12 +46,16 @@ class AnalyticsEventFactory
         $this->populateFromRequestMeta($event, $request);
         $this->populateFromRequestData($event, $data);
 
+        // Identity from the payload gets a priority; fall back to the resolver-derived values
+        // on the request (e.g. host auth token / anonymous-id cookie).
+        $event->userId ??= $request->userId;
+        $event->anonymousId ??= $request->anonymousId;
+
         return $event;
     }
 
     protected function populateFromRequestMeta(AnalyticsEvent $event, AnalyticsRequest $request): void
     {
-        $event->userId = $request->userId;
         $event->contextIp = $request->ip;
         $event->contextUserAgent = $request->userAgent;
         if ($request->acceptLanguage) {
@@ -73,6 +77,7 @@ class AnalyticsEventFactory
             throw new \Exception(\sprintf('Unexpected type: %s', $type));
         }
 
+        $event->userId = isset($data['userId']) ? (string) $data['userId'] : null;
         $event->anonymousId = isset($data['anonymousId']) ? (string) $data['anonymousId'] : null;
 
         $event->contextActive = isset($data['context']['active']) ? (bool) $data['context']['active'] : null;

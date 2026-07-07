@@ -24,6 +24,8 @@ class AnalyticsRequest
     #[ORM\Column(nullable: true)]
     public ?string $userId = null;
 
+    public ?string $anonymousId = null;
+
     #[ORM\Column(nullable: true)]
     public ?string $ip = null;
 
